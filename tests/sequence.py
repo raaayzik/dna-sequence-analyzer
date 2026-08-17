@@ -237,4 +237,3 @@ def translate_dna(sequence: str, frame: int = 0, stop_at_stop: bool = True) -> s
         protein.append(amino_acid)
 
     return "".join(protein)
-    
