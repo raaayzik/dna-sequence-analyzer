@@ -31,9 +31,9 @@ class TestAlignmentModule(unittest.TestCase):
 
     def test_smith_waterman_local(self):
         """Test Smith-Waterman local alignment on sequences with strong local matching regions."""
-        # Flanking unrelated sequences with a matching core "ATGCATGC"
-        ref = "NNNNATGCATGCNNNN"
-        query = "XXXXATGCATGCXXXX"
+        # Flanking unrelated sequences with valid DNA bases around core "ATGCATGC"
+        ref = "AAAAATGCATGCGGGG"
+        query = "TTTTATGCATGCCCCC"
         res = smith_waterman(ref, query)
         self.assertGreater(res.score, 0.0)
         self.assertEqual(res.aligned_reference, "ATGCATGC")
@@ -49,4 +49,3 @@ class TestAlignmentModule(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-      
