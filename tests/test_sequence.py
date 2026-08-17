@@ -95,8 +95,8 @@ class TestSequenceModule(unittest.TestCase):
         # Translation without stopping at stop codon
         self.assertEqual(translate_dna("ATGAAATAG", frame=0, stop_at_stop=False), "MK*")
 
-        # Reading frame 2 evaluation (GAA -> E)
-        self.assertEqual(translate_dna("ATGAAATAG", frame=2, stop_at_stop=True), "E")
+        # Reading frame 2 evaluation (GAA -> E, ATA -> I)
+        self.assertEqual(translate_dna("ATGAAATAG", frame=2, stop_at_stop=True), "EI")
 
         # Short sequences and incomplete trailing codons
         self.assertEqual(translate_dna("AT", frame=0), "")
@@ -116,3 +116,4 @@ class TestSequenceModule(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    
