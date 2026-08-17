@@ -1,0 +1,7 @@
+>obvious_orf Educational ORF sequence with valid start and stop
+ATGGCCGATCGATCGATCGATCGATCGATCGATCGATCGATCTAG
+>no_orf Sequence without any start codon or stop
+CGATCGATCGATCGATCGATCGATCGATCGATCGATCGATCG
+>reverse_orf Sequence containing an ORF on the reverse complement strand
+CGATCGATCGATCGATCGATCGATCGATCTAGCGATCGATCGCCAT
+
