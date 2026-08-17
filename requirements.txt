@@ -1,0 +1,3 @@
+# Bioinformatics DNA Sequence Analyzer and Alignment Toolkit
+# Built with Python standard library (no external dependencies required).
+
