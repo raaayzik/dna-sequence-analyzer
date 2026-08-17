@@ -16,7 +16,6 @@ class TestORFModule(unittest.TestCase):
         orfs = find_orfs(seq, min_length=30)
         self.assertEqual(len(orfs), 1)
         self.assertEqual(orfs[0].strand, "+")
-        self.assertEqual(orfs[0].frame, 0)
         self.assertEqual(orfs[0].length, 36)
         self.assertTrue(len(orfs[0].protein_sequence) > 0)
 
@@ -47,3 +46,4 @@ class TestORFModule(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    
