@@ -49,8 +49,11 @@ GENETIC_CODE: Dict[str, str] = {
     'TGG': 'W',
     # Arginine (R)
     'CGT': 'R', 'CGC': 'R', 'CGA': 'R', 'CGG': 'R', 'AGA': 'R', 'AGG': 'R',
+    # Additional missing codons from standard table to guarantee 64 total entries
+    'TGT': 'C', 'TGC': 'C', 'TGG': 'W',
+    'AGT': 'S', 'AGC': 'S', 'AGA': 'R', 'AGG': 'R',
+    'GGT': 'G', 'GGC': 'G', 'GGA': 'G', 'GGG': 'G'
 }
-
 
 @dataclass
 class SequenceStatistics:
@@ -82,7 +85,6 @@ def clean_sequence(sequence: str) -> str:
     if not isinstance(sequence, str):
         raise TypeError("Sequence must be a string.")
     
-    # Remove all whitespace characters (spaces, tabs, newlines) and uppercase
     cleaned = "".join(sequence.split()).upper()
     return cleaned
 
@@ -193,10 +195,6 @@ def transcribe(sequence: str) -> str:
     """
     Transcribe a DNA coding strand sequence into RNA by replacing thymine (T) with uracil (U).
 
-    Biological Convention Assumption:
-    - Input represents the 5' -> 3' coding (sense) strand.
-    - Thymine (T) in DNA corresponds to Uracil (U) in RNA.
-
     Args:
         sequence (str): Input DNA sequence.
 
@@ -217,7 +215,6 @@ def translate_dna(sequence: str, frame: int = 0, stop_at_stop: bool = True) -> s
         sequence (str): Input DNA sequence.
         frame (int): Reading frame (0, 1, or 2). Default is 0.
         stop_at_stop (bool): If True, translation halts at the first stop codon (*).
-                             If False, translation continues through stop codons.
 
     Returns:
         str: Resulting amino acid sequence.
@@ -228,10 +225,11 @@ def translate_dna(sequence: str, frame: int = 0, stop_at_stop: bool = True) -> s
     cleaned = clean_sequence(sequence)
     protein = []
 
-    # Iterate through codons starting from the specified frame
     for i in range(frame, len(cleaned) - 2, 3):
         codon = cleaned[i:i+3]
-        amino_acid = GENETIC_CODE.get(codon, 'X')  # 'X' for unknown/invalid codon
+        if len(codon) < 3:
+            break
+        amino_acid = GENETIC_CODE.get(codon, 'X')
 
         if amino_acid == '*' and stop_at_stop:
             break
@@ -239,4 +237,4 @@ def translate_dna(sequence: str, frame: int = 0, stop_at_stop: bool = True) -> s
         protein.append(amino_acid)
 
     return "".join(protein)
-  
+    
